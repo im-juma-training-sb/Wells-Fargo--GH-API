@@ -16,9 +16,8 @@ jobs:
           gh repo view ${{ github.repository }} --json name,description,stargazerCount,forkCount
 
   create-issue:
-          runs-on: ubuntu-latest
-          
-          steps:
+        runs-on: ubuntu-latest
+        steps:
             - name: Create a new issue
               env:
                 GH_TOKEN: ${{ github.token }}
