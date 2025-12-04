@@ -1,0 +1,16 @@
+name: API Demo
+
+on:
+  workflow_dispatch:
+
+jobs:
+  fetch-repo-info:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Get repository details
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          echo "Fetching repository information..."
+          gh repo view ${{ github.repository }} --json name,description,stargazerCount,forkCount
