@@ -29,3 +29,15 @@ jobs:
                   --title "Automated Issue from Workflow - WellsFargo Test 1" \
                   --body "This issue was created automatically by workflow run ${{ github.run_id }} at $(date)" \
                   --label "documentation"
+
+
+  fetch-issues-rest:
+          runs-on: ubuntu-latest
+          
+          steps:
+            - name: Fetch issues using REST API
+              run: |
+                curl -H "Authorization: Bearer ${{ github.token }}" \
+                  -H "Accept: application/vnd.github+json" \
+                  https://api.github.com/repos/${{ github.repository }}/issues?state=open&per_page=5 \
+                  | jq '.[] | {number: .number, title: .title, author: .user.login}'
