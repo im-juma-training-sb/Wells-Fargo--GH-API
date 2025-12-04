@@ -14,3 +14,16 @@ jobs:
         run: |
           echo "Fetching repository information..."
           gh repo view ${{ github.repository }} --json name,description,stargazerCount,forkCount
+
+  create-issue:
+          runs-on: ubuntu-latest
+          
+          steps:
+            - name: Create a new issue
+              env:
+                GH_TOKEN: ${{ github.token }}
+              run: |
+                gh issue create \
+                  --title "Automated Issue from Workflow - WellsFargo Test 1" \
+                  --body "This issue was created automatically by workflow run ${{ github.run_id }} at $(date)" \
+                  --label "documentation"
